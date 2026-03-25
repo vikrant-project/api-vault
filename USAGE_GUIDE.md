@@ -6,7 +6,7 @@
 ```bash
 git clone https://github.com/vikrant-project/api-vault.git
 cd api-vault
-python soul.py
+python api-vault.py
 ```
 
 ### Step 2: Access the Application
