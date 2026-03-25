@@ -99,7 +99,7 @@ git clone https://github.com/vikrant-project/api-vault.git
 cd api-vault
 
 # Run SOUL (auto-installs dependencies)
-python soul.py
+python api-vault.py
 ```
 
 **That's it!** 🎉 SOUL is now running at `http://localhost:9077`
@@ -169,7 +169,7 @@ curl -X POST http://localhost:9077/api/modules/SentimentAnalyzer/execute \
                       │ HTTPS/REST
                       ↓
 ┌─────────────────────────────────────────────────────────────┐
-│                   FastAPI Server (soul.py)                   │
+│                   FastAPI Server (api-vault.py)                   │
 │  ┌──────────────┐ ┌──────────────┐ ┌──────────────────┐    │
 │  │  Auth Layer  │ │ Rate Limiter │ │  Audit Logger    │    │
 │  └──────────────┘ └──────────────┘ └──────────────────┘    │
@@ -279,7 +279,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 - **GitHub Issues**: [Report bugs](https://github.com/vikrant-project/api-vault/issues)
 - **Discussions**: [Ask questions](https://github.com/vikrant-project/api-vault/discussions)
-- **Email**: vikrant-project@gmail.com
+- **Email**: vikrantranahome@gmail.com
 
 ---
 
