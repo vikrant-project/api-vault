@@ -1200,27 +1200,71 @@ def get_dashboard_page(user_data: Dict) -> str:
     return get_base_html() + rf'''
 <div class="container">
 <div class="glass" style="padding:30px;margin-top:20px">
-<div style="display:flex;justify-content:space-between;align-items:center">
-<h1>Dashboard Overview</h1>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:30px">
+<h1 style="margin:0">📊 Dashboard Overview</h1>
 <div style="display:flex;align-items:center;gap:20px">
-<div style="background:rgba(255,255,255,0.2);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px">{user_data['username'][0].upper()}</div>
+<div style="background:rgba(255,255,255,0.2);width:45px;height:45px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:bold">{user_data['username'][0].upper()}</div>
 <div>
-<div style="font-weight:bold">{user_data['username']}</div>
-<a href="/api/auth/logout" style="color:#fff;opacity:0.8;text-decoration:none;font-size:14px">Logout</a>
+<div style="font-weight:bold;font-size:16px">{user_data['username']}</div>
+<a href="/api/auth/logout" style="color:#fff;opacity:0.7;text-decoration:none;font-size:13px">Logout</a>
 </div>
 </div>
 </div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:30px">
-<div class="card"><h3>Total API Keys</h3><h1 id="totalKeys">0</h1></div>
-<div class="card"><h3>Total Requests</h3><h1 id="totalRequests">0</h1></div>
-<div class="card"><h3>Rate Limit Used</h3><h1 id="rateLimit">0%</h1></div>
-<div class="card"><h3>Available Modules</h3><h1>900</h1></div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-bottom:30px">
+<div class="card" style="cursor:pointer" onclick="window.location.href='/api-keys'">
+<h3 style="margin:0 0 10px 0;font-size:16px;opacity:0.8">Total API Keys</h3>
+<h1 id="totalKeys" style="margin:0;font-size:42px">0</h1>
 </div>
-<div class="card" style="margin-top:20px">
-<h3>⚡ Quick Actions</h3>
-<p style="opacity:0.8;margin:10px 0">Welcome to SOUL! Get started by exploring our 900 offline AI modules across 9 categories.</p>
-<a href="/modules" class="btn" style="display:inline-block;text-decoration:none;margin-top:10px">Explore Modules</a>
+<div class="card" style="cursor:pointer" onclick="window.location.href='/statistics'">
+<h3 style="margin:0 0 10px 0;font-size:16px;opacity:0.8">Total Requests</h3>
+<h1 id="totalRequests" style="margin:0;font-size:42px">0</h1>
 </div>
+<div class="card" style="cursor:pointer" onclick="window.location.href='/statistics'">
+<h3 style="margin:0 0 10px 0;font-size:16px;opacity:0.8">Rate Limit Used</h3>
+<h1 id="rateLimit" style="margin:0;font-size:42px">0%</h1>
+</div>
+<div class="card" style="cursor:pointer" onclick="window.location.href='/modules'">
+<h3 style="margin:0 0 10px 0;font-size:16px;opacity:0.8">Available Modules</h3>
+<h1 style="margin:0;font-size:42px">900</h1>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:30px">
+<div class="card" style="cursor:pointer;transition:all 0.3s" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'" onclick="window.location.href='/modules'">
+<h3 style="margin:0 0 10px 0">🎯 Browse Modules</h3>
+<p style="opacity:0.8;margin:0 0 15px 0;font-size:14px">Explore 900 AI modules across 9 categories</p>
+<div style="color:#667eea;font-weight:bold">Explore Now →</div>
+</div>
+<div class="card" style="cursor:pointer;transition:all 0.3s" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'" onclick="window.location.href='/api-keys'">
+<h3 style="margin:0 0 10px 0">🔑 Manage API Keys</h3>
+<p style="opacity:0.8;margin:0 0 15px 0;font-size:14px">View, create and delete your API keys</p>
+<div style="color:#667eea;font-weight:bold">Manage Keys →</div>
+</div>
+<div class="card" style="cursor:pointer;transition:all 0.3s" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'" onclick="window.location.href='/statistics'">
+<h3 style="margin:0 0 10px 0">📊 View Analytics</h3>
+<p style="opacity:0.8;margin:0 0 15px 0;font-size:14px">Detailed usage statistics and insights</p>
+<div style="color:#667eea;font-weight:bold">View Stats →</div>
+</div>
+</div>
+
+<div class="card">
+<h3 style="margin:0 0 15px 0">⚡ Quick Start Guide</h3>
+<ol style="opacity:0.8;line-height:1.8;padding-left:20px">
+<li>Browse the <a href="/modules" style="color:#fff;font-weight:bold">Modules</a> page and find an AI module you need</li>
+<li>Click "Generate API Key" to create a key for that module</li>
+<li>Copy your API key (you'll only see it once!)</li>
+<li>Use the API key in your application with the X-API-Key header</li>
+<li>Monitor usage in the <a href="/statistics" style="color:#fff;font-weight:bold">Statistics</a> page</li>
+</ol>
+</div>
+
+<div class="card" style="background:linear-gradient(135deg,rgba(102,126,234,0.3),rgba(118,75,162,0.3))">
+<h3 style="margin:0 0 10px 0">📚 API Documentation</h3>
+<p style="opacity:0.9;margin:0 0 15px 0">Complete API documentation with examples</p>
+<a href="/docs" target="_blank" class="btn" style="display:inline-block;text-decoration:none">View Docs</a>
+</div>
+
 </div>
 </div>
 <script>
@@ -1872,24 +1916,182 @@ async def dashboard(request: Request):
 
 @app.get("/modules", response_class=HTMLResponse)
 async def modules_page(request: Request):
-    """Modules page"""
+    """Modules page with full browser interface"""
     user_id = await get_current_user(request)
     if not user_id:
         return RedirectResponse(url="/login")
     
-    return get_base_html() + '''
+    # Get all modules
+    all_modules = AIModules.get_all_modules()
+    categories = AIModules.CATEGORIES
+    
+    # Build modules HTML
+    modules_html = ""
+    for category_id, modules_list in all_modules.items():
+        category_name = categories.get(category_id, category_id)
+        for module in modules_list:
+            modules_html += f'''
+<div class="module-card" data-category="{category_id}" data-name="{module['name'].lower()}">
+    <div style="display:flex;justify-content:space-between;align-items:start">
+        <div style="flex:1">
+            <h3 style="margin:0 0 8px 0;font-size:18px">{module['name']}</h3>
+            <p style="opacity:0.7;margin:0 0 12px 0;font-size:14px">{module['description']}</p>
+            <div style="display:inline-block;background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:20px;font-size:12px">
+                {category_name}
+            </div>
+        </div>
+        <button onclick="generateKey('{module['name']}')" class="btn" style="padding:8px 16px;font-size:14px;white-space:nowrap;margin-left:15px">
+            Generate API Key
+        </button>
+    </div>
+</div>
+'''
+    
+    return get_base_html() + f'''
+<style>
+.module-card{{
+    background:rgba(255,255,255,0.15);
+    padding:20px;
+    border-radius:12px;
+    margin:10px 0;
+    transition:all 0.3s;
+}}
+.module-card:hover{{
+    background:rgba(255,255,255,0.2);
+    transform:translateX(5px);
+}}
+.filter-btn{{
+    background:rgba(255,255,255,0.1);
+    color:#fff;
+    border:2px solid rgba(255,255,255,0.3);
+    padding:8px 16px;
+    border-radius:20px;
+    cursor:pointer;
+    margin:5px;
+    font-size:14px;
+    transition:all 0.3s;
+}}
+.filter-btn.active{{
+    background:linear-gradient(45deg,#667eea,#764ba2);
+    border-color:transparent;
+}}
+.filter-btn:hover{{
+    border-color:rgba(255,255,255,0.6);
+}}
+</style>
 <div class="container">
 <div class="glass" style="padding:30px;margin-top:20px">
-<h1>900 AI Modules</h1>
-<p style="opacity:0.8;margin:10px 0">Browse and generate API keys for any module</p>
-<a href="/dashboard" style="color:#fff">← Back to Dashboard</a>
-<div style="margin-top:30px">
-<div class="alert alert-info">
-Module browser coming soon! Use the API endpoints to list modules programmatically.
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+    <div>
+        <h1 style="margin:0">🎯 900 AI Modules</h1>
+        <p style="opacity:0.8;margin:5px 0 0 0">Browse and generate API keys instantly</p>
+    </div>
+    <a href="/dashboard" style="color:#fff;text-decoration:none;opacity:0.8">← Back to Dashboard</a>
+</div>
+
+<div class="card" style="margin-bottom:20px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:20px;margin-bottom:20px">
+        <div style="text-align:center"><h2 style="margin:0;font-size:36px">900</h2><p style="opacity:0.8;margin:5px 0 0 0">Total Modules</p></div>
+        <div style="text-align:center"><h2 style="margin:0;font-size:36px">9</h2><p style="opacity:0.8;margin:5px 0 0 0">Categories</p></div>
+        <div style="text-align:center"><h2 style="margin:0;font-size:36px">100%</h2><p style="opacity:0.8;margin:5px 0 0 0">Offline</p></div>
+        <div style="text-align:center"><h2 style="margin:0;font-size:36px">$0</h2><p style="opacity:0.8;margin:5px 0 0 0">API Cost</p></div>
+    </div>
+</div>
+
+<div style="margin-bottom:20px">
+    <input type="text" id="searchInput" placeholder="🔍 Search modules..." onkeyup="filterModules()" style="width:100%;max-width:600px">
+</div>
+
+<div style="margin-bottom:20px">
+    <button class="filter-btn active" onclick="filterCategory('all')">All Modules</button>
+    <button class="filter-btn" onclick="filterCategory('chatbot')">💬 Chatbot</button>
+    <button class="filter-btn" onclick="filterCategory('text_to_image')">🎨 Text-to-Image</button>
+    <button class="filter-btn" onclick="filterCategory('image_decoder')">🖼️ Image Processing</button>
+    <button class="filter-btn" onclick="filterCategory('translation')">🌍 Translation</button>
+    <button class="filter-btn" onclick="filterCategory('coding')">💻 Coding</button>
+    <button class="filter-btn" onclick="filterCategory('voice')">🎵 Voice/Audio</button>
+    <button class="filter-btn" onclick="filterCategory('data_analysis')">📊 Data Analysis</button>
+    <button class="filter-btn" onclick="filterCategory('content_gen')">📝 Content Gen</button>
+    <button class="filter-btn" onclick="filterCategory('vision')">👁️ Vision/ML</button>
+</div>
+
+<div id="modulesList">
+{modules_html}
+</div>
+
+<div id="noResults" style="display:none;text-align:center;padding:40px">
+    <h3 style="opacity:0.6">No modules found</h3>
+    <p style="opacity:0.5">Try adjusting your search or filter</p>
+</div>
+
+<div id="messageBox" style="display:none;position:fixed;top:20px;right:20px;max-width:400px;z-index:1000"></div>
+
 </div>
 </div>
-</div>
-</div>
+<script>
+let currentFilter = 'all';
+
+function filterCategory(category) {{
+    currentFilter = category;
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    filterModules();
+}}
+
+function filterModules() {{
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('.module-card');
+    let visibleCount = 0;
+    
+    cards.forEach(card => {{
+        const cardCategory = card.getAttribute('data-category');
+        const cardName = card.getAttribute('data-name');
+        const matchesCategory = currentFilter === 'all' || cardCategory === currentFilter;
+        const matchesSearch = cardName.includes(searchTerm) || searchTerm === '';
+        
+        if (matchesCategory && matchesSearch) {{
+            card.style.display = 'block';
+            visibleCount++;
+        }} else {{
+            card.style.display = 'none';
+        }}
+    }});
+    
+    document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+}}
+
+async function generateKey(moduleName) {{
+    try {{
+        const res = await fetch('/api/keys/create', {{
+            method: 'POST',
+            headers: {{'Content-Type': 'application/json'}},
+            body: JSON.stringify({{module_name: moduleName}})
+        }});
+        
+        const result = await res.json();
+        
+        if (res.ok) {{
+            showMessage(`API Key Generated: ${{result.api_key}}<br><small>Save this key - you won't see it again!</small>`, 'success');
+            setTimeout(() => {{
+                if (confirm('API Key generated! Go to API Keys page to view all your keys?')) {{
+                    window.location.href = '/api-keys';
+                }}
+            }}, 3000);
+        }} else {{
+            showMessage('Error: ' + result.detail, 'error');
+        }}
+    }} catch (err) {{
+        showMessage('Network error: ' + err.message, 'error');
+    }}
+}}
+
+function showMessage(message, type) {{
+    const box = document.getElementById('messageBox');
+    box.innerHTML = `<div class="alert alert-${{type}}">${{message}}</div>`;
+    box.style.display = 'block';
+    setTimeout(() => box.style.display = 'none', 10000);
+}}
+</script>
 </body>
 </html>
 '''
@@ -1901,41 +2103,304 @@ async def api_keys_page(request: Request):
     if not user_id:
         return RedirectResponse(url="/login")
     
-    return get_base_html() + '''
+    # Get user's API keys
+    async with get_db() as conn:
+        cursor = await conn.cursor()
+        await cursor.execute('''
+            SELECT id, module_name, category, api_key, created_at, last_used, status, rate_limit_monthly, rate_limit_used
+            FROM api_keys WHERE user_id = ? ORDER BY created_at DESC
+        ''', (user_id,))
+        
+        keys = []
+        rows = await cursor.fetchall()
+        for row in rows:
+            api_key = decrypt_data(row[3])
+            keys.append({
+                "id": row[0],
+                "module_name": row[1],
+                "category": row[2],
+                "api_key": mask_api_key(api_key),
+                "created_at": row[4],
+                "last_used": row[5] or "Never",
+                "status": row[6],
+                "rate_limit_monthly": row[7],
+                "rate_limit_used": row[8]
+            })
+    
+    keys_html = ""
+    if keys:
+        for key in keys:
+            usage_percent = (key['rate_limit_used'] / key['rate_limit_monthly'] * 100) if key['rate_limit_monthly'] > 0 else 0
+            status_color = "#2e7d32" if key['status'] == 'active' else "#d32f2f"
+            
+            keys_html += f'''
+<div class="card" style="margin-bottom:15px">
+    <div style="display:flex;justify-content:space-between;align-items:start">
+        <div style="flex:1">
+            <h3 style="margin:0 0 8px 0;font-size:20px">{key['module_name']}</h3>
+            <p style="opacity:0.7;margin:0 0 10px 0">📁 {key['category']}</p>
+            <div style="display:inline-block;background:{status_color};padding:4px 12px;border-radius:20px;font-size:12px;font-weight:bold;margin-bottom:15px">
+                {key['status'].upper()}
+            </div>
+            <div style="background:rgba(0,0,0,0.2);padding:10px;border-radius:8px;font-family:monospace;margin-bottom:15px">
+                🔑 {key['api_key']}
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;font-size:14px">
+                <div><strong>Created:</strong> {key['created_at'][:10]}</div>
+                <div><strong>Last Used:</strong> {key['last_used'][:10] if key['last_used'] != "Never" else "Never"}</div>
+                <div><strong>Usage:</strong> {key['rate_limit_used']}/{key['rate_limit_monthly']} ({usage_percent:.1f}%)</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.1);border-radius:10px;height:8px;margin-top:10px;overflow:hidden">
+                <div style="background:linear-gradient(45deg,#667eea,#764ba2);height:100%;width:{usage_percent}%;transition:width 0.3s"></div>
+            </div>
+        </div>
+        <button onclick="deleteKey({key['id']}, '{key['module_name']}')" class="btn" style="background:linear-gradient(45deg,#d32f2f,#c62828);margin-left:20px;padding:8px 16px">
+            🗑️ Delete
+        </button>
+    </div>
+</div>
+'''
+    else:
+        keys_html = '''
+<div class="card" style="text-align:center;padding:60px 20px">
+    <h3 style="opacity:0.6;margin-bottom:15px">No API Keys Yet</h3>
+    <p style="opacity:0.5;margin-bottom:25px">Go to the Modules page to generate your first API key</p>
+    <a href="/modules" class="btn" style="display:inline-block;text-decoration:none">Browse Modules</a>
+</div>
+'''
+    
+    return get_base_html() + f'''
 <div class="container">
 <div class="glass" style="padding:30px;margin-top:20px">
-<h1>🔑 API Keys</h1>
-<p style="opacity:0.8;margin:10px 0">Manage your API keys</p>
-<a href="/dashboard" style="color:#fff">← Back to Dashboard</a>
-<div style="margin-top:30px">
-<div class="alert alert-info">
-API key management UI coming soon! Use the API endpoints to manage keys programmatically.
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:30px">
+    <div>
+        <h1 style="margin:0">🔑 API Keys</h1>
+        <p style="opacity:0.8;margin:5px 0 0 0">Manage your API keys and monitor usage</p>
+    </div>
+    <a href="/dashboard" style="color:#fff;text-decoration:none;opacity:0.8">← Back to Dashboard</a>
+</div>
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+    <div>
+        <h2 style="margin:0;font-size:18px">Your API Keys ({len(keys)})</h2>
+    </div>
+    <a href="/modules" class="btn" style="display:inline-block;text-decoration:none;padding:10px 20px">
+        ➕ Generate New Key
+    </a>
+</div>
+
+{keys_html}
+
+<div id="messageBox" style="display:none;position:fixed;top:20px;right:20px;max-width:400px;z-index:1000"></div>
+
 </div>
 </div>
-</div>
-</div>
+<script>
+async function deleteKey(keyId, moduleName) {{
+    if (!confirm(`Delete API key for ${{moduleName}}? This action cannot be undone.`)) {{
+        return;
+    }}
+    
+    try {{
+        const res = await fetch(`/api/keys/${{keyId}}`, {{
+            method: 'DELETE'
+        }});
+        
+        if (res.ok) {{
+            showMessage('API key deleted successfully', 'success');
+            setTimeout(() => location.reload(), 1500);
+        }} else {{
+            const result = await res.json();
+            showMessage('Error: ' + result.detail, 'error');
+        }}
+    }} catch (err) {{
+        showMessage('Network error: ' + err.message, 'error');
+    }}
+}}
+
+function showMessage(message, type) {{
+    const box = document.getElementById('messageBox');
+    box.innerHTML = `<div class="alert alert-${{type}}">${{message}}</div>`;
+    box.style.display = 'block';
+    setTimeout(() => box.style.display = 'none', 5000);
+}}
+</script>
 </body>
 </html>
 '''
 
 @app.get("/statistics", response_class=HTMLResponse)
 async def statistics_page(request: Request):
-    """Statistics page"""
+    """Statistics and analytics page"""
     user_id = await get_current_user(request)
     if not user_id:
         return RedirectResponse(url="/login")
     
-    return get_base_html() + '''
+    # Get comprehensive statistics
+    async with get_db() as conn:
+        cursor = await conn.cursor()
+        
+        # Total API keys
+        await cursor.execute("SELECT COUNT(*) FROM api_keys WHERE user_id = ?", (user_id,))
+        total_keys = (await cursor.fetchone())[0]
+        
+        # Active API keys
+        await cursor.execute("SELECT COUNT(*) FROM api_keys WHERE user_id = ? AND status = 'active'", (user_id,))
+        active_keys = (await cursor.fetchone())[0]
+        
+        # Total API requests
+        await cursor.execute("SELECT COUNT(*) FROM api_requests WHERE user_id = ?", (user_id,))
+        total_requests = (await cursor.fetchone())[0]
+        
+        # Average response time
+        await cursor.execute("SELECT AVG(response_time_ms) FROM api_requests WHERE user_id = ?", (user_id,))
+        avg_response_time = (await cursor.fetchone())[0] or 0
+        
+        # Most used modules
+        await cursor.execute('''
+            SELECT module_name, COUNT(*) as count
+            FROM api_requests
+            WHERE user_id = ?
+            GROUP BY module_name
+            ORDER BY count DESC
+            LIMIT 5
+        ''', (user_id,))
+        top_modules = await cursor.fetchall()
+        
+        # Recent activity
+        await cursor.execute('''
+            SELECT module_name, request_timestamp, status_code, response_time_ms
+            FROM api_requests
+            WHERE user_id = ?
+            ORDER BY request_timestamp DESC
+            LIMIT 10
+        ''', (user_id,))
+        recent_activity = await cursor.fetchall()
+        
+        # Category usage
+        await cursor.execute('''
+            SELECT category, COUNT(*) as count
+            FROM api_requests
+            WHERE user_id = ?
+            GROUP BY category
+            ORDER BY count DESC
+        ''', (user_id,))
+        category_usage = await cursor.fetchall()
+    
+    # Generate top modules HTML
+    top_modules_html = ""
+    if top_modules:
+        for idx, (module, count) in enumerate(top_modules, 1):
+            top_modules_html += f'''
+<div style="padding:12px;background:rgba(255,255,255,0.05);border-radius:8px;margin-bottom:8px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+        <div><strong>#{idx}</strong> {module}</div>
+        <div style="font-weight:bold">{count} calls</div>
+    </div>
+</div>
+'''
+    else:
+        top_modules_html = '<p style="opacity:0.6;text-align:center;padding:20px">No data yet</p>'
+    
+    # Generate recent activity HTML
+    activity_html = ""
+    if recent_activity:
+        for module, timestamp, status, response_time in recent_activity:
+            status_color = "#2e7d32" if status == 200 else "#d32f2f"
+            activity_html += f'''
+<tr style="border-bottom:1px solid rgba(255,255,255,0.1)">
+    <td style="padding:12px">{module}</td>
+    <td style="padding:12px">{timestamp[:19]}</td>
+    <td style="padding:12px"><span style="background:{status_color};padding:4px 12px;border-radius:15px;font-size:12px">{status}</span></td>
+    <td style="padding:12px">{response_time}ms</td>
+</tr>
+'''
+    else:
+        activity_html = '<tr><td colspan="4" style="text-align:center;padding:40px;opacity:0.6">No requests yet</td></tr>'
+    
+    # Generate category chart
+    category_chart = ""
+    if category_usage:
+        for category, count in category_usage:
+            percentage = (count / total_requests * 100) if total_requests > 0 else 0
+            category_chart += f'''
+<div style="margin-bottom:15px">
+    <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+        <span>{category}</span>
+        <span style="font-weight:bold">{count} ({percentage:.1f}%)</span>
+    </div>
+    <div style="background:rgba(255,255,255,0.1);border-radius:10px;height:8px;overflow:hidden">
+        <div style="background:linear-gradient(45deg,#667eea,#764ba2);height:100%;width:{percentage}%;transition:width 0.3s"></div>
+    </div>
+</div>
+'''
+    else:
+        category_chart = '<p style="opacity:0.6;text-align:center;padding:20px">No data yet</p>'
+    
+    return get_base_html() + f'''
+<style>
+table{{width:100%;border-collapse:collapse}}
+th{{text-align:left;padding:12px;border-bottom:2px solid rgba(255,255,255,0.2);font-weight:bold}}
+</style>
 <div class="container">
 <div class="glass" style="padding:30px;margin-top:20px">
-<h1>📊 Statistics</h1>
-<p style="opacity:0.8;margin:10px 0">Analytics and usage statistics</p>
-<a href="/dashboard" style="color:#fff">← Back to Dashboard</a>
-<div style="margin-top:30px">
-<div class="alert alert-info">
-Advanced statistics coming soon! Use the API endpoints to fetch stats programmatically.
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:30px">
+    <div>
+        <h1 style="margin:0">📊 Statistics & Analytics</h1>
+        <p style="opacity:0.8;margin:5px 0 0 0">Comprehensive usage analytics and insights</p>
+    </div>
+    <a href="/dashboard" style="color:#fff;text-decoration:none;opacity:0.8">← Back to Dashboard</a>
 </div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:30px">
+    <div class="card" style="text-align:center">
+        <h2 style="margin:0;font-size:42px;background:linear-gradient(45deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent">{total_keys}</h2>
+        <p style="opacity:0.8;margin:10px 0 0 0">Total API Keys</p>
+    </div>
+    <div class="card" style="text-align:center">
+        <h2 style="margin:0;font-size:42px;background:linear-gradient(45deg,#2e7d32,#43a047);-webkit-background-clip:text;-webkit-text-fill-color:transparent">{active_keys}</h2>
+        <p style="opacity:0.8;margin:10px 0 0 0">Active Keys</p>
+    </div>
+    <div class="card" style="text-align:center">
+        <h2 style="margin:0;font-size:42px;background:linear-gradient(45deg,#0288d1,#0277bd);-webkit-background-clip:text;-webkit-text-fill-color:transparent">{total_requests}</h2>
+        <p style="opacity:0.8;margin:10px 0 0 0">Total Requests</p>
+    </div>
+    <div class="card" style="text-align:center">
+        <h2 style="margin:0;font-size:42px;background:linear-gradient(45deg,#f57c00,#ef6c00);-webkit-background-clip:text;-webkit-text-fill-color:transparent">{int(avg_response_time)}ms</h2>
+        <p style="opacity:0.8;margin:10px 0 0 0">Avg Response Time</p>
+    </div>
 </div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:30px">
+    <div class="card">
+        <h3 style="margin:0 0 20px 0">🏆 Top 5 Most Used Modules</h3>
+        {top_modules_html}
+    </div>
+    <div class="card">
+        <h3 style="margin:0 0 20px 0">📁 Usage by Category</h3>
+        {category_chart}
+    </div>
+</div>
+
+<div class="card">
+    <h3 style="margin:0 0 20px 0">📋 Recent Activity</h3>
+    <div style="overflow-x:auto">
+        <table>
+            <thead>
+                <tr>
+                    <th>Module</th>
+                    <th>Timestamp</th>
+                    <th>Status</th>
+                    <th>Response Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {activity_html}
+            </tbody>
+        </table>
+    </div>
+</div>
+
 </div>
 </div>
 </body>
